@@ -23,10 +23,6 @@ public class EasyEstateController {
         return easyEstateService.saveForm(saveFormRequestDTO);
     }
 
-    @PostMapping("/save/property/type")
-    private ResponseEntity<String> savePropertyType(@RequestBody PropertyTypeDTO propertyTypeDTO) {
-        return easyEstateService.savePropertyTypeDetails(propertyTypeDTO);
-    }
 
     @GetMapping("/get/property/details")
     private ResponseEntity<PropertyResponseDTO> getPropertyDetails() {

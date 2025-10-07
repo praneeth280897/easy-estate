@@ -8,6 +8,4 @@ import org.springframework.http.ResponseEntity;
 public interface EasyEstateService {
 
     ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO);
-
-    ResponseEntity<String> savePropertyTypeDetails(PropertyTypeDTO propertyTypeDTO);
 }

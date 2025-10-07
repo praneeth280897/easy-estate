@@ -2,8 +2,6 @@ package com.easy.serviceImpl;
 
 import com.easy.entity.*;
 import com.easy.repository.PropertyDetailsRepository;
-import com.easy.repository.PropertyTypeRepository;
-import com.easy.request.PropertyTypeDTO;
 import com.easy.request.SaveFormRequestDTO;
 import com.easy.service.EasyEstateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +15,6 @@ public class EasyEstateServiceImpl implements EasyEstateService {
     @Autowired
     private PropertyDetailsRepository propertyDetailsRepository;
 
-    @Autowired
-    private PropertyTypeRepository propertyTypeRepository;
 
     @Override
     public ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO) {
@@ -110,14 +106,5 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         return property;
     }
 
-    @Override
-    public ResponseEntity<String> savePropertyTypeDetails(PropertyTypeDTO propertyType) {
-        PropertyTypeEntity propertyTypeEntity = new PropertyTypeEntity();
-        propertyTypeEntity.setPropType(propertyType.getPropType());
-        propertyTypeEntity.setPropCode(propertyType.getPropCode());
-        propertyTypeEntity.setDisplayText(propertyType.getDisplayText());
-        propertyTypeEntity.setMeasurementType(propertyType.getMeasurementType());
-        propertyTypeRepository.save(propertyTypeEntity);
-        return new ResponseEntity<>("Property Type Added SucessFully", HttpStatus.OK);
-    }
+
 }
