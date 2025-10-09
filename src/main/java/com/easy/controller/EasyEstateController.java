@@ -1,5 +1,6 @@
 package com.easy.controller;
 
+import com.easy.entity.PropertyDetailsEntity;
 import com.easy.request.PropertyTypeDTO;
 import com.easy.request.SaveFormRequestDTO;
 import com.easy.request.UnitDetailsDTO;
@@ -9,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -25,8 +28,8 @@ public class EasyEstateController {
 
 
     @GetMapping("/get/property/details")
-    private ResponseEntity<PropertyResponseDTO> getPropertyDetails() {
-        return null;
+    private ResponseEntity<List<PropertyDetailsEntity>> getPropertyDetails() {
+        return easyEstateService.getPropertyDetails();
     }
 
 }

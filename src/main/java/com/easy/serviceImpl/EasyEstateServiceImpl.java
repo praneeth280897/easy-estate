@@ -3,11 +3,15 @@ package com.easy.serviceImpl;
 import com.easy.entity.*;
 import com.easy.repository.PropertyDetailsRepository;
 import com.easy.request.SaveFormRequestDTO;
+import com.easy.response.PropertyResponseDTO;
 import com.easy.service.EasyEstateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EasyEstateServiceImpl implements EasyEstateService {
@@ -106,5 +110,12 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         return property;
     }
 
+    @Override
+    public ResponseEntity<List<PropertyDetailsEntity>> getPropertyDetails() {
 
+        List<PropertyDetailsEntity> propertyDetails = propertyDetailsRepository.findAll();
+
+
+        return new ResponseEntity<>(propertyDetails,HttpStatus.OK);
+    }
 }
