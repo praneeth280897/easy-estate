@@ -1,16 +1,24 @@
 package com.easy.serviceImpl;
 
+import com.backblaze.b2.client.B2StorageClient;
+import com.backblaze.b2.client.contentSources.B2ByteArrayContentSource;
+import com.backblaze.b2.client.contentSources.B2ContentSource;
+import com.backblaze.b2.client.exceptions.B2Exception;
+import com.backblaze.b2.client.structures.B2Bucket;
+import com.backblaze.b2.client.structures.B2FileVersion;
+import com.backblaze.b2.client.structures.B2UploadFileRequest;
 import com.easy.entity.*;
 import com.easy.repository.PropertyDetailsRepository;
 import com.easy.request.SaveFormRequestDTO;
-import com.easy.response.PropertyResponseDTO;
 import com.easy.service.EasyEstateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -19,7 +27,11 @@ public class EasyEstateServiceImpl implements EasyEstateService {
     @Autowired
     private PropertyDetailsRepository propertyDetailsRepository;
 
+    @Autowired
+    private B2StorageClient client;
 
+    @Autowired
+    private B2Bucket bucket;
     @Override
     public ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO) {
         PropertyDetailsEntity property;
@@ -117,5 +129,24 @@ public class EasyEstateServiceImpl implements EasyEstateService {
 
 
         return new ResponseEntity<>(propertyDetails,HttpStatus.OK);
+    }
+
+    @Override
+    public B2FileVersion uploadVideo(MultipartFile file) throws IOException {
+        try (InputStream inputStream = file.getInputStream()) {
+            byte[] fileBytes = file.getBytes();  // Convert MultipartFile to byte[]
+            B2ContentSource contentSource = B2ByteArrayContentSource.build(fileBytes);
+
+            B2UploadFileRequest request = B2UploadFileRequest
+                    .builder(bucket.getBucketId(),
+                            file.getOriginalFilename(),
+                            file.getContentType(),
+                            contentSource)
+                    .build();
+            return client.uploadSmallFile(request);
+        } catch (B2Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
