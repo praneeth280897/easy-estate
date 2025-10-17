@@ -33,6 +33,10 @@ public class B2Config {
 
     @Bean
     public B2Bucket b2Bucket(B2StorageClient client) throws Exception {
-        return client.getBucketOrNullByName(bucketName);
+        B2Bucket bucket = client.getBucketOrNullByName(bucketName);
+        if (bucket == null) {
+            throw new IllegalStateException("Bucket '" + bucketName + "' not found or credentials are incorrect.");
+        }
+        return bucket;
     }
 }
