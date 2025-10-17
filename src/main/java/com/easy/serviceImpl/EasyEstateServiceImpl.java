@@ -11,6 +11,7 @@ import com.easy.entity.*;
 import com.easy.repository.PropertyDetailsRepository;
 import com.easy.request.SaveFormRequestDTO;
 import com.easy.service.EasyEstateService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EasyEstateServiceImpl implements EasyEstateService {
 
     @Autowired
@@ -145,7 +147,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
                     .build();
             return client.uploadSmallFile(request);
         } catch (B2Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }
