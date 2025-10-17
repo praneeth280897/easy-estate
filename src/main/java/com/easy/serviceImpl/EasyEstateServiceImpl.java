@@ -34,6 +34,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
 
     @Autowired
     private B2Bucket bucket;
+
     @Override
     public ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO) {
         PropertyDetailsEntity property;
@@ -147,7 +148,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
                     .build();
             return client.uploadSmallFile(request);
         } catch (B2Exception e) {
-            log.error(e.getMessage());
+            log.error("error while uploading file:::::" +e.getMessage());
         }
         return null;
     }
