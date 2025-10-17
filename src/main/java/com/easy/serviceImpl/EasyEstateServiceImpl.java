@@ -136,7 +136,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
 
     @Override
     public B2FileVersion uploadVideo(MultipartFile file) throws IOException {
-        try (InputStream inputStream = file.getInputStream()) {
+        try  {
             byte[] fileBytes = file.getBytes();  // Convert MultipartFile to byte[]
             B2ContentSource contentSource = B2ByteArrayContentSource.build(fileBytes);
 
