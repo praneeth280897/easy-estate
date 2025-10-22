@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Slf4j
@@ -35,13 +38,19 @@ public class EasyEstateController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadVideo(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadVideo(@RequestParam("file") MultipartFile file, @RequestParam("propertyId") Long propertyId) {
         try {
-            B2FileVersion response = easyEstateService.uploadVideo(file);
-            return ResponseEntity.ok("Uploaded: " + response.getFileName() + " | File ID: " + response.getFileId());
+            String response = easyEstateService.uploadVideo(file, propertyId);
+            return ResponseEntity.ok("Uploaded file URL to Access:" + response);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Upload failed: " + e.getMessage());
         }
+    }
+
+
+    @GetMapping("get-file-to-open")
+    public ResponseEntity<List<String>> getFileToOpen(@RequestParam ("propertyId") String propertyId) {
+        return easyEstateService.getFileToOpen(propertyId);
     }
 
 }
