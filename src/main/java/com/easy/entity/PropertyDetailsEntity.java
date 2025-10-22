@@ -8,8 +8,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Table(name = "tbl_property_details")
-@DiscriminatorColumn(name = "property_type", discriminatorType = DiscriminatorType.STRING)
-public abstract class PropertyDetailsEntity extends AuditEntity {
+public class PropertyDetailsEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +16,9 @@ public abstract class PropertyDetailsEntity extends AuditEntity {
 
     @Column(name = "property_size")
     private Double propertSize;
+
+    @Column(name="property_type")
+    private String propertyType;
 
     @Column(name = "area_unit")
     private String areaUnit;
@@ -62,6 +64,19 @@ public abstract class PropertyDetailsEntity extends AuditEntity {
 
     @Column(name = "property_facing")
     private String propertyFacing;
+
+    private String flatNumber;
+    private Integer floorNumber;
+    private Integer totalFloors;
+    private Boolean hasLift;
+    private Double maintenanceFee;
+
+    private Integer numberOfFloors;
+    private Double builtupArea;
+    private Integer constructionYear;
+
+    private String soilType;
+    private String waterSource;
 
 }
 

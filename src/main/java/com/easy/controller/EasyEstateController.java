@@ -9,6 +9,7 @@ import com.easy.response.PropertyResponseDTO;
 import com.easy.service.EasyEstateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +34,7 @@ public class EasyEstateController {
 
 
     @GetMapping("/get/property/details")
-    private ResponseEntity<List<PropertyDetailsEntity>> getPropertyDetails() {
+    private ResponseEntity<List<PropertyResponseDTO>> getPropertyDetails() {
         return easyEstateService.getPropertyDetails();
     }
 
@@ -48,9 +49,14 @@ public class EasyEstateController {
     }
 
 
-    @GetMapping("get-file-to-open")
+    @GetMapping("/get-file-to-open")
     public ResponseEntity<List<String>> getFileToOpen(@RequestParam ("propertyId") String propertyId) {
-        return easyEstateService.getFileToOpen(propertyId);
+        return new ResponseEntity<>(easyEstateService.getFileToOpen(propertyId), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-property-detils-by-id")
+    public ResponseEntity<PropertyResponseDTO> getPropertyDetailsById(@RequestParam ("propertyId") Long propertyId){
+        return new ResponseEntity<>(easyEstateService.getPropertyDetailsById(propertyId),HttpStatus.OK);
     }
 
 }

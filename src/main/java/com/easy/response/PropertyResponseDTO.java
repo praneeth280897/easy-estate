@@ -3,6 +3,8 @@ package com.easy.response;
 import com.easy.request.UnitDetailsDTO;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class PropertyResponseDTO {
 
@@ -39,5 +41,7 @@ public class PropertyResponseDTO {
     // Farming/Open Plot
     public String soilType;
     public String waterSource;
+
+    private List<String> url;
 
 }

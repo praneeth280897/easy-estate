@@ -3,6 +3,7 @@ package com.easy.service;
 import com.backblaze.b2.client.exceptions.B2Exception;
 import com.easy.entity.PropertyDetailsEntity;
 import com.easy.request.SaveFormRequestDTO;
+import com.easy.response.PropertyResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,9 +16,11 @@ public interface EasyEstateService {
 
     ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO);
 
-    ResponseEntity<List<PropertyDetailsEntity>> getPropertyDetails();
+    ResponseEntity<List<PropertyResponseDTO>> getPropertyDetails();
 
     String uploadVideo(MultipartFile file, Long propertyId) throws IOException, B2Exception;
 
-    ResponseEntity<List<String>> getFileToOpen(String propertyId);
+    List<String> getFileToOpen(String propertyId);
+
+    PropertyResponseDTO getPropertyDetailsById(Long propertyId);
 }

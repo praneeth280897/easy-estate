@@ -1,7 +1,6 @@
 package com.easy.serviceImpl;
 
 import com.backblaze.b2.client.B2StorageClient;
-import com.backblaze.b2.client.B2StorageClientFactory;
 import com.backblaze.b2.client.contentSources.B2ByteArrayContentSource;
 import com.backblaze.b2.client.contentSources.B2ContentSource;
 import com.backblaze.b2.client.exceptions.B2Exception;
@@ -9,25 +8,21 @@ import com.backblaze.b2.client.structures.*;
 import com.easy.entity.*;
 import com.easy.repository.PropertyDetailsRepository;
 import com.easy.request.SaveFormRequestDTO;
+import com.easy.response.PropertyResponseDTO;
 import com.easy.service.EasyEstateService;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -55,22 +50,22 @@ public class EasyEstateServiceImpl implements EasyEstateService {
 
     @Override
     public ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO) {
-        PropertyDetailsEntity property;
+        PropertyDetailsEntity property = new PropertyDetailsEntity();
         switch (saveFormRequestDTO.getPropertyType()) {
             case "Flat":
-                property = setFlatDetailsToSave(saveFormRequestDTO);
+                property = setFlatDetailsToSave(saveFormRequestDTO,property);
                 break;
 
             case "Individual House":
-                property = setInvidualHouse(saveFormRequestDTO);
+                property = setInvidualHouse(saveFormRequestDTO,property);
                 break;
 
             case "Farming Land":
-                property = setFarmingLandDetails(saveFormRequestDTO);
+                property = setFarmingLandDetails(saveFormRequestDTO,property);
                 break;
 
             case "Open Plot":
-                property = setOpenPlotDetails(saveFormRequestDTO);
+                property = setOpenPlotDetails(saveFormRequestDTO,property);
                 break;
 
             default:
@@ -99,57 +94,85 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setRoadAccess(saveFormRequestDTO.isRoadAccess());
         property.setRoadWidth(saveFormRequestDTO.getRoadWidth());
         property.setPropertyFacing(saveFormRequestDTO.getPropertyFacing());
+        property.setPropertyType(saveFormRequestDTO.getPropertyType());
         property.setCreatedBy("ADMIN");
         property.setUpdatedBy("ADMIN");
     }
 
-    private PropertyDetailsEntity setOpenPlotDetails(SaveFormRequestDTO saveFormRequestDTO) {
-        PropertyDetailsEntity property;
-        OpenPlot plot = new OpenPlot();
-        plot.setSoilType(saveFormRequestDTO.getSoilType());
-        plot.setWaterSource(saveFormRequestDTO.getWaterSource());
-        property = plot;
+    private PropertyDetailsEntity setOpenPlotDetails(SaveFormRequestDTO saveFormRequestDTO,PropertyDetailsEntity property) {
+
+        property.setSoilType(saveFormRequestDTO.getSoilType());
+        property.setWaterSource(saveFormRequestDTO.getWaterSource());
         return property;
     }
 
-    private PropertyDetailsEntity setFarmingLandDetails(SaveFormRequestDTO saveFormRequestDTO) {
-        PropertyDetailsEntity property;
-        FarmingLand land = new FarmingLand();
-        land.setSoilType(saveFormRequestDTO.getSoilType());
-        land.setWaterSource(saveFormRequestDTO.getWaterSource());
-        property = land;
+    private PropertyDetailsEntity setFarmingLandDetails(SaveFormRequestDTO saveFormRequestDTO,PropertyDetailsEntity property) {
+
+        property.setSoilType(saveFormRequestDTO.getSoilType());
+        property.setWaterSource(saveFormRequestDTO.getWaterSource());
         return property;
     }
 
-    private PropertyDetailsEntity setInvidualHouse(SaveFormRequestDTO saveFormRequestDTO) {
-        PropertyDetailsEntity property;
-        IndividualHouse house = new IndividualHouse();
-        house.setNumberOfFloors(saveFormRequestDTO.getNumberOfFloors());
-        house.setBuiltupArea(saveFormRequestDTO.getBuiltupArea());
-        house.setConstructionYear(saveFormRequestDTO.getConstructionYear());
-        property = house;
+    private PropertyDetailsEntity setInvidualHouse(SaveFormRequestDTO saveFormRequestDTO,PropertyDetailsEntity property) {
+        property.setNumberOfFloors(saveFormRequestDTO.getNumberOfFloors());
+        property.setBuiltupArea(saveFormRequestDTO.getBuiltupArea());
+        property.setConstructionYear(saveFormRequestDTO.getConstructionYear());
         return property;
     }
 
-    private PropertyDetailsEntity setFlatDetailsToSave(SaveFormRequestDTO saveFormRequestDTO) {
-        PropertyDetailsEntity property;
-        Flat flat = new Flat();
-        flat.setFlatNumber(saveFormRequestDTO.getFlatNumber());
-        flat.setFloorNumber(saveFormRequestDTO.getFloorNumber());
-        flat.setTotalFloors(saveFormRequestDTO.getTotalFloors());
-        flat.setHasLift(saveFormRequestDTO.getHasLift());
-        flat.setMaintenanceFee(saveFormRequestDTO.getMaintenanceFee());
-        property = flat;
+    private PropertyDetailsEntity setFlatDetailsToSave(SaveFormRequestDTO saveFormRequestDTO,PropertyDetailsEntity property) {
+
+        property.setFlatNumber(saveFormRequestDTO.getFlatNumber());
+        property.setFloorNumber(saveFormRequestDTO.getFloorNumber());
+        property.setTotalFloors(saveFormRequestDTO.getTotalFloors());
+        property.setHasLift(saveFormRequestDTO.getHasLift());
+        property.setMaintenanceFee(saveFormRequestDTO.getMaintenanceFee());
         return property;
     }
 
     @Override
-    public ResponseEntity<List<PropertyDetailsEntity>> getPropertyDetails() {
+    public ResponseEntity<List<PropertyResponseDTO>> getPropertyDetails() {
 
         List<PropertyDetailsEntity> propertyDetails = propertyDetailsRepository.findAll();
+        List<PropertyResponseDTO> response = new ArrayList<>();
+        for(PropertyDetailsEntity priceDEtailsEntity :propertyDetails) {
+            response.add(setResponseData(priceDEtailsEntity));
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
+    private PropertyResponseDTO setResponseData(PropertyDetailsEntity priceDEtailsEntity) {
+        PropertyResponseDTO dto = new PropertyResponseDTO();
+        dto.setPropertySize(priceDEtailsEntity.getPropertSize());
+        dto.setAreaUnit(priceDEtailsEntity.getAreaUnit());
+        dto.setListingType(priceDEtailsEntity.getListingType());
+        dto.setPrice(priceDEtailsEntity.getPrice());
+        dto.setCity(priceDEtailsEntity.getCity());
+        dto.setState(priceDEtailsEntity.getState());
+        dto.setCountry(priceDEtailsEntity.getCountry());
+        dto.setAddress(priceDEtailsEntity.getAddress());
+        dto.setPostalCode(priceDEtailsEntity.getPostalCode());
+        dto.setLatitude(priceDEtailsEntity.getLatitude());
+        dto.setLongitude(priceDEtailsEntity.getLongitude());
+        dto.setAgentId(priceDEtailsEntity.getAgentId());
+        dto.setOwnerName(priceDEtailsEntity.getOwnerName());
+        dto.setRoadAccess(priceDEtailsEntity.isRoadAccess());
+        dto.setRoadWidth(priceDEtailsEntity.getRoadWidth());
+        dto.setPropertyType(priceDEtailsEntity.getPropertyType());
+        dto.setFlatNumber(priceDEtailsEntity.getFlatNumber());
+        dto.setFloorNumber(priceDEtailsEntity.getFloorNumber());
+        dto.setTotalFloors(priceDEtailsEntity.getTotalFloors());
+        dto.setHasLift(priceDEtailsEntity.getHasLift());
+        dto.setMaintenanceFee(priceDEtailsEntity.getMaintenanceFee());
 
-        return new ResponseEntity<>(propertyDetails, HttpStatus.OK);
+        dto.setNumberOfFloors(priceDEtailsEntity.getNumberOfFloors());
+        dto.setBuiltupArea(priceDEtailsEntity.getBuiltupArea());
+        dto.setConstructionYear(priceDEtailsEntity.getConstructionYear());
+
+        dto.setSoilType(priceDEtailsEntity.getSoilType());
+        dto.setWaterSource(priceDEtailsEntity.getWaterSource());
+        dto.setUrl(getFileToOpen(priceDEtailsEntity.getId().toString()));
+        return dto;
     }
 
     @Override
@@ -169,7 +192,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         return String.format("https://f005.backblazeb2.com/file/%s/%s", bucketName, fileName);
     }
     @Override
-    public ResponseEntity<List<String>> getFileToOpen(String propertyId) {
+    public List<String> getFileToOpen(String propertyId) {
         List<String> secureUrls = new ArrayList<>();
         try {
             B2ListFileVersionsRequest.Builder request = B2ListFileVersionsRequest
@@ -208,10 +231,21 @@ public class EasyEstateServiceImpl implements EasyEstateService {
             log.error("Failed to list or authorize files in folder '{}': {}", propertyId, e.getMessage(), e);
         }
 
-        return new ResponseEntity<>(secureUrls,HttpStatus.OK);
+        return secureUrls;
 
     }
 
 
+    @Override
+    public PropertyResponseDTO getPropertyDetailsById(Long propertyId) {
 
+        Optional<PropertyDetailsEntity> propertyDetailsEntity = propertyDetailsRepository.findById(propertyId);
+        if(propertyDetailsEntity.isPresent()) {
+            PropertyResponseDTO responseDTO =setResponseData(propertyDetailsEntity.get());
+            return responseDTO;
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Given PropertyId doesnot Exists");
+        }
+    }
 }
