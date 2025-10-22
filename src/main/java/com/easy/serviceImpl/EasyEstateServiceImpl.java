@@ -5,7 +5,7 @@ import com.backblaze.b2.client.contentSources.B2ByteArrayContentSource;
 import com.backblaze.b2.client.contentSources.B2ContentSource;
 import com.backblaze.b2.client.exceptions.B2Exception;
 import com.backblaze.b2.client.structures.*;
-import com.easy.entity.*;
+import com.easy.entity.PropertyDetailsEntity;
 import com.easy.repository.PropertyDetailsRepository;
 import com.easy.request.SaveFormRequestDTO;
 import com.easy.response.PropertyResponseDTO;
