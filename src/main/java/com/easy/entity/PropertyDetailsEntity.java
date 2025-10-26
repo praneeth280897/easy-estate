@@ -65,17 +65,38 @@ public class PropertyDetailsEntity extends AuditEntity {
     @Column(name = "property_facing")
     private String propertyFacing;
 
+    //flat
+    @Column(name="flat_number")
     private String flatNumber;
+    @Column(name = "floor_number")
     private Integer floorNumber;
+    @Column(name = "total_floors")
     private Integer totalFloors;
+    @Column(name="has_lift")
     private Boolean hasLift;
+    @Column(name = "maintenance_fee")
     private Double maintenanceFee;
+    @Column(name = "total_bed_rooms")
+    private Long totalBedRooms;
+    @Column(name = "total_bath_rooms")
+    private Long toalBathRooms;
+    @Column(name = "total_warandas")
+    private long totalWarendas;
 
+
+
+    //IndividualHouse
+    @Column(name = "number_of_floors")
     private Integer numberOfFloors;
+    @Column(name = "builtup_area")
     private Double builtupArea;
+    @Column(name = "construction_year")
     private Integer constructionYear;
 
+    //FarmingLand
+    @Column(name = "soil_type")
     private String soilType;
+    @Column(name="water_source")
     private String waterSource;
 
 }
