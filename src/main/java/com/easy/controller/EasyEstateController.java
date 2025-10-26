@@ -1,5 +1,6 @@
 package com.easy.controller;
 
+import com.backblaze.b2.client.exceptions.B2Exception;
 import com.backblaze.b2.client.structures.B2FileVersion;
 import com.easy.entity.PropertyDetailsEntity;
 import com.easy.request.PropertyTypeDTO;
@@ -29,7 +30,7 @@ public class EasyEstateController {
     private EasyEstateService easyEstateService;
 
     @PostMapping("/save/form")
-    public ResponseEntity<String> saveFormDetails(@RequestBody SaveFormRequestDTO saveFormRequestDTO) {
+    public ResponseEntity<String> saveFormDetails(@RequestBody SaveFormRequestDTO saveFormRequestDTO) throws B2Exception {
         return easyEstateService.saveForm(saveFormRequestDTO);
     }
 

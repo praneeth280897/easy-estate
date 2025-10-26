@@ -3,6 +3,7 @@ package com.easy.request;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class SaveFormRequestDTO {
@@ -25,6 +26,7 @@ public class SaveFormRequestDTO {
     private boolean roadAccess;
     private Long roadWidth;
     private String propertyFacing;
+    private List<String> fileData;
 
     //Flat
     public String flatNumber;

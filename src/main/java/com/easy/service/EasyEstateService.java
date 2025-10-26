@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface EasyEstateService {
 
-    ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO);
+    ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO) throws B2Exception;
 
     ResponseEntity<List<PropertyResponseDTO>> getPropertyDetails();
 
