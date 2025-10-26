@@ -6,6 +6,7 @@ import com.easy.request.PropertyTypeDTO;
 import com.easy.request.SaveFormRequestDTO;
 import com.easy.request.UnitDetailsDTO;
 import com.easy.response.PropertyResponseDTO;
+import com.easy.response.PropertyTypeRequiredResponse;
 import com.easy.service.EasyEstateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,10 @@ public class EasyEstateController {
         return new ResponseEntity<>(easyEstateService.getPropertyDetailsById(propertyId),HttpStatus.OK);
     }
 
-   
+    @GetMapping("/get-required-fields")
+    public ResponseEntity<PropertyTypeRequiredResponse> getRequiredFieldsByPRopertyId(@RequestParam ("propertyId") Long propertyId) throws Exception {
+        log.info("GET REQUIRED FIELDS::::");
+        return easyEstateService.getRequireFieldsByPropertyId(propertyId);
+    }
 
 }

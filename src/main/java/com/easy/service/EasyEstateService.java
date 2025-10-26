@@ -4,6 +4,7 @@ import com.backblaze.b2.client.exceptions.B2Exception;
 import com.easy.entity.PropertyDetailsEntity;
 import com.easy.request.SaveFormRequestDTO;
 import com.easy.response.PropertyResponseDTO;
+import com.easy.response.PropertyTypeRequiredResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,4 +24,6 @@ public interface EasyEstateService {
     List<String> getFileToOpen(String propertyId);
 
     PropertyResponseDTO getPropertyDetailsById(Long propertyId);
+
+    ResponseEntity<PropertyTypeRequiredResponse> getRequireFieldsByPropertyId(Long propertyId) throws Exception;
 }

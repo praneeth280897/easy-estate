@@ -13,9 +13,9 @@ public class PropertyResponseDTO {
     private UnitDetailsDTO propertyUnits;
     private String listingType;
     private double price;
-    private String city;
-    private String state;
-    private String country;
+    private String cityName;
+    private String stateName;
+    private String countryName;
     private String address;
     private Long postalCode;
     private double latitude;

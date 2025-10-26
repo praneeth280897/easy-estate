@@ -5,10 +5,14 @@ import com.backblaze.b2.client.contentSources.B2ByteArrayContentSource;
 import com.backblaze.b2.client.contentSources.B2ContentSource;
 import com.backblaze.b2.client.exceptions.B2Exception;
 import com.backblaze.b2.client.structures.*;
+import com.easy.component.EasyEstateComponent;
 import com.easy.entity.PropertyDetailsEntity;
+import com.easy.entity.PropertyTypeEntity;
 import com.easy.repository.PropertyDetailsRepository;
+import com.easy.repository.PropertyTypeRepository;
 import com.easy.request.SaveFormRequestDTO;
 import com.easy.response.PropertyResponseDTO;
+import com.easy.response.PropertyTypeRequiredResponse;
 import com.easy.service.EasyEstateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +51,11 @@ public class EasyEstateServiceImpl implements EasyEstateService {
     @Value("${backblaze.applicationKey}")
     private String applicationKey;
 
+    @Autowired
+    private PropertyTypeRepository propertyTypeRepository;
+
+    @Autowired
+    private EasyEstateComponent easyEstateComponent;
 
     @Override
     public ResponseEntity<String> saveForm(SaveFormRequestDTO saveFormRequestDTO) {
@@ -147,9 +156,9 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         dto.setAreaUnit(priceDEtailsEntity.getAreaUnit());
         dto.setListingType(priceDEtailsEntity.getListingType());
         dto.setPrice(priceDEtailsEntity.getPrice());
-        dto.setCity(priceDEtailsEntity.getCity());
-        dto.setState(priceDEtailsEntity.getState());
-        dto.setCountry(priceDEtailsEntity.getCountry());
+        dto.setCityName(priceDEtailsEntity.getCity());
+        dto.setStateName(priceDEtailsEntity.getState());
+        dto.setCountryName(priceDEtailsEntity.getCountry());
         dto.setAddress(priceDEtailsEntity.getAddress());
         dto.setPostalCode(priceDEtailsEntity.getPostalCode());
         dto.setLatitude(priceDEtailsEntity.getLatitude());
@@ -247,5 +256,14 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Given PropertyId doesnot Exists");
         }
+    }
+
+    @Override
+    public ResponseEntity<PropertyTypeRequiredResponse> getRequireFieldsByPropertyId(Long propertyId) throws Exception {
+        Optional<PropertyTypeEntity> propertyType = propertyTypeRepository.findById(propertyId);
+        if(propertyType.isPresent()) {
+            return  new ResponseEntity<>(easyEstateComponent.getRequireFieldsByPropertyId(propertyType.get()),HttpStatus.OK);
+        }
+        throw new Exception("Property Type not Present"+propertyId);
     }
 }
