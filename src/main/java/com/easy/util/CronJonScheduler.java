@@ -8,9 +8,9 @@ import org.springframework.web.client.RestTemplate;
 public class CronJonScheduler {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private static final String APP_URL = "https://easy-estate-1.onrender.com/";
+    private static final String APP_URL = "https://easy-estate-1.onrender.com";
 
-    @Scheduled(fixedRate = 10 * 60 * 1000)
+    /*@Scheduled(fixedRate = 10 * 60 * 1000)
     public void pingSelf() {
         try {
             restTemplate.getForObject(APP_URL, String.class);
@@ -18,5 +18,5 @@ public class CronJonScheduler {
         } catch (Exception e) {
             System.out.println("⚠️ Self-ping failed: " + e.getMessage());
         }
-    }
+    }*/
 }
