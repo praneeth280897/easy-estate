@@ -39,7 +39,7 @@ public class EasyEstateController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadVideo(@RequestParam("file") MultipartFile file, @RequestParam("propertyId") Long propertyId) {
+    public ResponseEntity<String> uploadVideo(@RequestPart("file") MultipartFile file, @RequestParam("propertyId") Long propertyId) {
         try {
             String response = easyEstateService.uploadVideo(file, propertyId);
             return ResponseEntity.ok("Uploaded file URL to Access:" + response);
@@ -58,5 +58,7 @@ public class EasyEstateController {
     public ResponseEntity<PropertyResponseDTO> getPropertyDetailsById(@RequestParam ("propertyId") Long propertyId){
         return new ResponseEntity<>(easyEstateService.getPropertyDetailsById(propertyId),HttpStatus.OK);
     }
+
+   
 
 }
