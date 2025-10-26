@@ -2,15 +2,13 @@ package com.easy.request;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Data
 public class SaveFormRequestDTO {
 
     private String propertyType;
-    private Double propertySize;
-    private UnitDetailsDTO propertyUnits;
+    private Double areaOfProperty;
     private String listingType;
     private double price;
     private String city;
@@ -27,6 +25,9 @@ public class SaveFormRequestDTO {
     private Long roadWidth;
     private String propertyFacing;
     private List<String> fileData;
+    private Long length;
+    private long width;
+    private String listedBy;
 
     //Flat
     public String flatNumber;
@@ -34,11 +35,20 @@ public class SaveFormRequestDTO {
     public Integer totalFloors;
     public Boolean hasLift;
     public Double maintenanceFee;
+    private Long noOfBathRooms;
+    private Long noOfBedRooms;
+    private Long noOfBalconies;
 
     // House
     public Integer numberOfFloors;
-    public Double builtupArea;
+    public Double builtUpArea;
     public Integer constructionYear;
+    private Long permittedFloors;
+    private String FurnishedStatus;
+    private boolean boundaryWall;
+    private double ageOfConstruction;
+    private Double pricePerUnit;
+    private boolean isNegotiable;
 
     // Farming/Open Plot
     public String soilType;

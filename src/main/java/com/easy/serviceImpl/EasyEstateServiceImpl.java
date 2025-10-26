@@ -106,7 +106,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setCountry(saveFormRequestDTO.getCountry());
         property.setLatitude(saveFormRequestDTO.getLatitude());
         property.setLongitude(saveFormRequestDTO.getLongitude());
-        property.setPropertSize(saveFormRequestDTO.getPropertySize());
+        property.setPropertSize(saveFormRequestDTO.getAreaOfProperty());
         property.setState(saveFormRequestDTO.getState());
         property.setListingType(saveFormRequestDTO.getListingType());
         property.setPrice(saveFormRequestDTO.getPrice());
@@ -117,6 +117,12 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setRoadWidth(saveFormRequestDTO.getRoadWidth());
         property.setPropertyFacing(saveFormRequestDTO.getPropertyFacing());
         property.setPropertyType(saveFormRequestDTO.getPropertyType());
+        property.setListedBy(saveFormRequestDTO.getListedBy());
+        property.setPriceNegotiable(saveFormRequestDTO.isNegotiable());
+        property.setConstructionYear(saveFormRequestDTO.getConstructionYear());
+        property.setLength(saveFormRequestDTO.getLength());
+        property.setWidth(saveFormRequestDTO.getWidth());
+        property.setPricePerUnit(saveFormRequestDTO.getPricePerUnit());
         property.setCreatedBy("ADMIN");
         property.setUpdatedBy("ADMIN");
     }
@@ -137,8 +143,13 @@ public class EasyEstateServiceImpl implements EasyEstateService {
 
     private PropertyDetailsEntity setInvidualHouse(SaveFormRequestDTO saveFormRequestDTO, PropertyDetailsEntity property) {
         property.setNumberOfFloors(saveFormRequestDTO.getNumberOfFloors());
-        property.setBuiltupArea(saveFormRequestDTO.getBuiltupArea());
+        property.setBuiltupArea(saveFormRequestDTO.getBuiltUpArea());
         property.setConstructionYear(saveFormRequestDTO.getConstructionYear());
+        property.setPermittedFloors(saveFormRequestDTO.getPermittedFloors());
+        property.setBoundaryWall(saveFormRequestDTO.isBoundaryWall());
+        property.setAgeOfConstruction(saveFormRequestDTO.getAgeOfConstruction());
+        property.setTotalWarendas(saveFormRequestDTO.getNoOfBalconies());
+        property.setFurnishedStatus(saveFormRequestDTO.getFurnishedStatus());
         return property;
     }
 
@@ -149,6 +160,10 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setTotalFloors(saveFormRequestDTO.getTotalFloors());
         property.setHasLift(saveFormRequestDTO.getHasLift());
         property.setMaintenanceFee(saveFormRequestDTO.getMaintenanceFee());
+        property.setBoundaryWall(saveFormRequestDTO.isBoundaryWall());
+        property.setAgeOfConstruction(saveFormRequestDTO.getAgeOfConstruction());
+        property.setTotalWarendas(saveFormRequestDTO.getNoOfBalconies());
+        property.setFurnishedStatus(saveFormRequestDTO.getFurnishedStatus());
         return property;
     }
 

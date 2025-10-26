@@ -83,6 +83,25 @@ public class PropertyDetailsEntity extends AuditEntity {
     @Column(name = "total_warandas")
     private long totalWarendas;
 
+    @Column(name="length")
+    private Long length;
+    @Column(name = "width")
+    private Long width;
+    @Column(name = "age_of_construction")
+    private double ageOfConstruction;
+    @Column(name = "price_per_unit")
+    private Double pricePerUnit;
+    @Column(name = "boundary_wall")
+    private boolean isBoundaryWall;
+    @Column(name = "is_negotiable")
+    private boolean isPriceNegotiable;
+    @Column(name = "permitted_floors")
+    private Long permittedFloors;
+    @Column(name = "furnished_status")
+    private String furnishedStatus;
+    @Column(name = "listed_by")
+    private String listedBy;
+
 
 
     //IndividualHouse
