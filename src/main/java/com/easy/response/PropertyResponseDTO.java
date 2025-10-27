@@ -8,22 +8,23 @@ import java.util.List;
 @Data
 public class PropertyResponseDTO {
 
+    private Long propetyId;
     private String propertyType;
     private Double propertySize;
     private UnitDetailsDTO propertyUnits;
     private String listingType;
-    private double price;
+    private Double price;
     private String cityName;
     private String stateName;
     private String countryName;
     private String address;
     private Long postalCode;
-    private double latitude;
-    private double longitude;
+    private Double latitude;
+    private Double longitude;
     private Long agentId;
     private String ownerName;
     private String areaUnit;
-    private boolean roadAccess;
+    private Boolean roadAccess;
     private Long roadWidth;
 
     //Flat
@@ -34,7 +35,7 @@ public class PropertyResponseDTO {
     public Double maintenanceFee;
 
     // House
-    public Integer numberOfFloors;
+    public Long numberOfFloors;
     public Double builtupArea;
     public Integer constructionYear;
 

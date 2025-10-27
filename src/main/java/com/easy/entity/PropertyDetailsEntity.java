@@ -81,20 +81,20 @@ public class PropertyDetailsEntity extends AuditEntity {
     @Column(name = "total_bath_rooms")
     private Long toalBathRooms;
     @Column(name = "total_warandas")
-    private long totalWarendas;
+    private Long totalWarendas;
 
     @Column(name="length")
     private Long length;
     @Column(name = "width")
     private Long width;
     @Column(name = "age_of_construction")
-    private double ageOfConstruction;
+    private Double ageOfConstruction;
     @Column(name = "price_per_unit")
     private Double pricePerUnit;
     @Column(name = "boundary_wall")
-    private boolean isBoundaryWall;
+    private Boolean isBoundaryWall;
     @Column(name = "is_negotiable")
-    private boolean isPriceNegotiable;
+    private Boolean isPriceNegotiable;
     @Column(name = "permitted_floors")
     private Long permittedFloors;
     @Column(name = "furnished_status")
@@ -106,7 +106,7 @@ public class PropertyDetailsEntity extends AuditEntity {
 
     //IndividualHouse
     @Column(name = "number_of_floors")
-    private Integer numberOfFloors;
+    private Long numberOfFloors;
     @Column(name = "builtup_area")
     private Double builtupArea;
     @Column(name = "construction_year")

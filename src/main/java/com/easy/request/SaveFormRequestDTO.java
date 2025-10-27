@@ -40,7 +40,7 @@ public class SaveFormRequestDTO {
     private Long noOfBalconies;
 
     // House
-    public Integer numberOfFloors;
+    public Long numberOfFloors;
     public Double builtUpArea;
     public Integer constructionYear;
     private Long permittedFloors;

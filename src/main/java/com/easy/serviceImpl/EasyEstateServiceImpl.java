@@ -118,7 +118,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setPropertyFacing(saveFormRequestDTO.getPropertyFacing());
         property.setPropertyType(saveFormRequestDTO.getPropertyType());
         property.setListedBy(saveFormRequestDTO.getListedBy());
-        property.setPriceNegotiable(saveFormRequestDTO.isNegotiable());
+        property.setIsPriceNegotiable(saveFormRequestDTO.isNegotiable());
         property.setConstructionYear(saveFormRequestDTO.getConstructionYear());
         property.setLength(saveFormRequestDTO.getLength());
         property.setWidth(saveFormRequestDTO.getWidth());
@@ -146,7 +146,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setBuiltupArea(saveFormRequestDTO.getBuiltUpArea());
         property.setConstructionYear(saveFormRequestDTO.getConstructionYear());
         property.setPermittedFloors(saveFormRequestDTO.getPermittedFloors());
-        property.setBoundaryWall(saveFormRequestDTO.isBoundaryWall());
+        property.setIsBoundaryWall(saveFormRequestDTO.isBoundaryWall());
         property.setAgeOfConstruction(saveFormRequestDTO.getAgeOfConstruction());
         property.setTotalWarendas(saveFormRequestDTO.getNoOfBalconies());
         property.setFurnishedStatus(saveFormRequestDTO.getFurnishedStatus());
@@ -160,7 +160,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setTotalFloors(saveFormRequestDTO.getTotalFloors());
         property.setHasLift(saveFormRequestDTO.getHasLift());
         property.setMaintenanceFee(saveFormRequestDTO.getMaintenanceFee());
-        property.setBoundaryWall(saveFormRequestDTO.isBoundaryWall());
+        property.setIsBoundaryWall(saveFormRequestDTO.isBoundaryWall());
         property.setAgeOfConstruction(saveFormRequestDTO.getAgeOfConstruction());
         property.setTotalWarendas(saveFormRequestDTO.getNoOfBalconies());
         property.setFurnishedStatus(saveFormRequestDTO.getFurnishedStatus());
@@ -180,6 +180,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
 
     private PropertyResponseDTO setResponseData(PropertyDetailsEntity priceDEtailsEntity) {
         PropertyResponseDTO dto = new PropertyResponseDTO();
+        dto.setPropetyId(priceDEtailsEntity.getId());
         dto.setPropertySize(priceDEtailsEntity.getPropertSize());
         dto.setAreaUnit(priceDEtailsEntity.getAreaUnit());
         dto.setListingType(priceDEtailsEntity.getListingType());
