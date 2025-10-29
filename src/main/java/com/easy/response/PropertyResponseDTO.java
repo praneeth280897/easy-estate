@@ -29,15 +29,15 @@ public class PropertyResponseDTO {
 
     //Flat
     public String flatNumber;
-    public Integer floorNumber;
-    public Integer totalFloors;
+    public Long floorNumber;
+    public Long totalFloors;
     public Boolean hasLift;
     public Double maintenanceFee;
 
     // House
     public Long numberOfFloors;
     public Double builtupArea;
-    public Integer constructionYear;
+    public Long constructionYear;
 
     // Farming/Open Plot
     public String soilType;

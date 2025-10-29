@@ -21,9 +21,15 @@ public class EasyEstateComponent {
 
             case "INDIVIDUAL_HOUSE":
                 response.setNumberOfFloors(true);
-                response.setBuiltupArea(true);
+                response.setBuiltUpArea(true);
                 response.setConstructionYear(true);
                 response.setHasLift(true);
+                response.setNoOfWarendas(true);
+                response.setNoOfBathRooms(true);
+                response.setNoOfBedRooms(true);
+                response.setBoundaryWall(true);
+                response.setFurnishedStatus(true);
+                response.setAgeOfConstruction(true);
                 break;
 
             case "FLAT":
@@ -32,6 +38,12 @@ public class EasyEstateComponent {
                 response.setTotalFloors(true);
                 response.setHasLift(true);
                 response.setMaintenanceFee(true);
+                response.setNoOfWarendas(true);
+                response.setNoOfBathRooms(true);
+                response.setNoOfBedRooms(true);
+                response.setBoundaryWall(true);
+                response.setFurnishedStatus(true);
+                response.setAgeOfConstruction(true);
                 break;
         }
 
@@ -57,5 +69,10 @@ public class EasyEstateComponent {
         response.setRoadAccess(true);
         response.setRoadWidth(true);
         response.setWaterSource(true);
+        response.setIsPriceNegotiable(true);
+        response.setListedBy(true);
+        response.setWidth(true);
+        response.setRoadWidth(true);
+        response.setLength(true);
     }
 }

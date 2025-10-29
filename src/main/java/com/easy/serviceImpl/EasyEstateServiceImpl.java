@@ -113,12 +113,12 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setOwnerName(saveFormRequestDTO.getOwnerName());
         property.setPostalCode(saveFormRequestDTO.getPostalCode());
         property.setAreaUnit(saveFormRequestDTO.getAreaUnit());
-        property.setRoadAccess(saveFormRequestDTO.isRoadAccess());
+        property.setRoadAccess(saveFormRequestDTO.getRoadAccess());
         property.setRoadWidth(saveFormRequestDTO.getRoadWidth());
         property.setPropertyFacing(saveFormRequestDTO.getPropertyFacing());
         property.setPropertyType(saveFormRequestDTO.getPropertyType());
         property.setListedBy(saveFormRequestDTO.getListedBy());
-        property.setIsPriceNegotiable(saveFormRequestDTO.isNegotiable());
+        property.setIsPriceNegotiable(saveFormRequestDTO.getIsNegotiable());
         property.setConstructionYear(saveFormRequestDTO.getConstructionYear());
         property.setLength(saveFormRequestDTO.getLength());
         property.setWidth(saveFormRequestDTO.getWidth());
@@ -146,7 +146,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setBuiltupArea(saveFormRequestDTO.getBuiltUpArea());
         property.setConstructionYear(saveFormRequestDTO.getConstructionYear());
         property.setPermittedFloors(saveFormRequestDTO.getPermittedFloors());
-        property.setIsBoundaryWall(saveFormRequestDTO.isBoundaryWall());
+        property.setIsBoundaryWall(saveFormRequestDTO.getBoundaryWall());
         property.setAgeOfConstruction(saveFormRequestDTO.getAgeOfConstruction());
         property.setTotalWarendas(saveFormRequestDTO.getNoOfBalconies());
         property.setFurnishedStatus(saveFormRequestDTO.getFurnishedStatus());
@@ -160,7 +160,7 @@ public class EasyEstateServiceImpl implements EasyEstateService {
         property.setTotalFloors(saveFormRequestDTO.getTotalFloors());
         property.setHasLift(saveFormRequestDTO.getHasLift());
         property.setMaintenanceFee(saveFormRequestDTO.getMaintenanceFee());
-        property.setIsBoundaryWall(saveFormRequestDTO.isBoundaryWall());
+        property.setIsBoundaryWall(saveFormRequestDTO.getBoundaryWall());
         property.setAgeOfConstruction(saveFormRequestDTO.getAgeOfConstruction());
         property.setTotalWarendas(saveFormRequestDTO.getNoOfBalconies());
         property.setFurnishedStatus(saveFormRequestDTO.getFurnishedStatus());

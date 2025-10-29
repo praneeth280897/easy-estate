@@ -69,9 +69,9 @@ public class PropertyDetailsEntity extends AuditEntity {
     @Column(name="flat_number")
     private String flatNumber;
     @Column(name = "floor_number")
-    private Integer floorNumber;
+    private Long floorNumber;
     @Column(name = "total_floors")
-    private Integer totalFloors;
+    private Long totalFloors;
     @Column(name="has_lift")
     private Boolean hasLift;
     @Column(name = "maintenance_fee")
@@ -110,7 +110,7 @@ public class PropertyDetailsEntity extends AuditEntity {
     @Column(name = "builtup_area")
     private Double builtupArea;
     @Column(name = "construction_year")
-    private Integer constructionYear;
+    private Long constructionYear;
 
     //FarmingLand
     @Column(name = "soil_type")
